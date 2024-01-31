@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ProductExceptionHandler {
 
-    @ExceptionHandler(ProductAlreadyExistsException.class)
-    public ResponseEntity<String> handleCustomException(ProductAlreadyExistsException ex) {
+    @ExceptionHandler(ProductSkuAlreadyExistsException.class)
+    public ResponseEntity<String> handleCustomException(ProductSkuAlreadyExistsException ex) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
             .body(ex.getMessage());
     }
