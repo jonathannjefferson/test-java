@@ -14,12 +14,14 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.anyInt;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductControllerTest {
 
-    private final int SKU = 43264;
+    private static final int SKU = 43264;
     @Mock
     private ProductService productService;
     @InjectMocks
@@ -29,7 +31,7 @@ public class ProductControllerTest {
     private Product product;
 
     @Test
-    void shouldReturnHttpStatusCreatedWhenProductIsCreated() {
+    void shouldReturnResponseWithHttpStatusCreatedWhenCreatingProduct() {
         when(productService.createProduct(any())).thenReturn(product);
 
         ResponseEntity<Product> response = productController.createProduct(product);
@@ -40,7 +42,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    void shouldReturnHttpStatusOkWhenProductIsUpdated() {
+    void shouldReturnResponseWithHttpStatusOkWhenUpdatingProduct() {
         doNothing().when(productService).updateProduct(any(), anyInt());
 
         ResponseEntity<Void> response = productController.updateProduct(product);
@@ -50,7 +52,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    void shouldReturnHttpStatusOkWhenProductIsFounded() {
+    void shouldReturnResponseWithHttpStatusOkWhenFindingProduct() {
         when(productService.getProductBySku(SKU)).thenReturn(Optional.of(product));
 
         ResponseEntity<Product> response = productController.getProductBySku(SKU);
@@ -71,7 +73,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    void shouldReturnHttpStatusNoContentWhenProductIsDeleted() {
+    void shouldReturnResponseWithHttpStatusNoContentWhenDeletingProduct() {
         doNothing().when(productService).deleteProductBySku(43264);
 
         ResponseEntity<Void> response = productController.deleteProductBySku(SKU);
