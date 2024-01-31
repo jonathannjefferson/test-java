@@ -1,8 +1,8 @@
 package br.com.blz.testjava.service;
 
-import br.com.blz.testjava.Fixture.ProductFixture;
 import br.com.blz.testjava.domain.Product;
 import br.com.blz.testjava.exception.ProductSkuAlreadyExistsException;
+import br.com.blz.testjava.fixture.ProductFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,11 +12,12 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
 
+    private static final int SKU = 43264;
     private ProductService productService;
     private Product product;
 
@@ -24,7 +25,6 @@ class ProductServiceTest {
     void setUp() {
         productService = new ProductService();
         product = ProductFixture.buildProduct();
-
     }
 
     @Test
@@ -44,20 +44,19 @@ class ProductServiceTest {
     }
 
     @Test
-    void shouldUpdateNameProductWhenItExists() {
+    void shouldUpdateProductWhenItExists() {
         product.setName("Teste");
 
-        productService.updateProduct(product, 43264);
+        productService.updateProduct(product, SKU);
 
         assertThat(product.getName()).isEqualTo("Teste");
-
     }
 
     @Test
     void shouldReturnProductWhenSkuExists() {
         productService.createProduct(product);
 
-        Optional<Product> productFounded = productService.getProductBySku(43264);
+        Optional<Product> productFounded = productService.getProductBySku(SKU);
 
         assertTrue(productFounded.isPresent());
         assertThat(productFounded.get()).isEqualTo(product);
@@ -68,9 +67,9 @@ class ProductServiceTest {
     @Test
     void shouldDeleteProductWhenSkuExists() {
         productService.createProduct(product);
-        productService.deleteProductBySku(43264);
+        productService.deleteProductBySku(SKU);
 
-        Optional<Product> productFound = productService.getProductBySku(43264);
+        Optional<Product> productFound = productService.getProductBySku(SKU);
 
         assertThat(productFound).isEmpty();
     }
