@@ -3,7 +3,7 @@ package br.com.blz.testjava.service;
 import br.com.blz.testjava.domain.Inventory;
 import br.com.blz.testjava.domain.Product;
 import br.com.blz.testjava.domain.Warehouse;
-import br.com.blz.testjava.exception.ProductAlreadyExistsException;
+import br.com.blz.testjava.exception.ProductSkuAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class ProductService {
 
     public Product createProduct(Product product) {
         if (getProductBySku(product.getSku()).isPresent()) {
-            throw new ProductAlreadyExistsException("Já existe produto cadastrado com essa sku");
+            throw new ProductSkuAlreadyExistsException("Já existe produto cadastrado com essa sku");
         }
         products.add(product);
 
@@ -39,7 +39,7 @@ public class ProductService {
             .findFirst();
     }
 
-    public void deleteProduct(int sku) {
+    public void deleteProductBySku(int sku) {
         getProductBySku(sku).ifPresent(products::remove);
     }
 
