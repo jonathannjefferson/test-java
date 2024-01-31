@@ -1,4 +1,4 @@
-package br.com.blz.testjava.Fixture;
+package br.com.blz.testjava.fixture;
 
 import br.com.blz.testjava.domain.Inventory;
 import br.com.blz.testjava.domain.Product;
