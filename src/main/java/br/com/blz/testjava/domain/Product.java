@@ -6,7 +6,7 @@ public class Product {
     private String name;
     private Inventory inventory;
 
-    boolean isMarketable;
+    private boolean isMarketable;
 
     public int getSku() {
         return sku;
