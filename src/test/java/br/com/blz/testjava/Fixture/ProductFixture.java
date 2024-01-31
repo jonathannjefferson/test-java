@@ -4,7 +4,6 @@ import br.com.blz.testjava.domain.Inventory;
 import br.com.blz.testjava.domain.Product;
 import br.com.blz.testjava.domain.Warehouse;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
